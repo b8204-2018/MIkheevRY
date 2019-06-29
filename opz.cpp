@@ -94,9 +94,10 @@ list<string> ExpressionParser::parse(string infix) {
             postfix.push_back(stack1.front());
             stack1.pop_front();
         } else {
-            cout << "Скобки не согласованы.";
-            flag = false;
-            return postfix;
+        	flag = false;
+            throw logic_error ("Скобки не согласованы.");
+       
+            
         }
     }
     //string buff=buff.assign(postfix.begin(),postfix.rend())
