@@ -77,13 +77,13 @@ list<string> ExpressionParser::parse(string infix) {
             }
 
         } else {
-            string buff="";
+            /*string buff="";
             while (isdigit(curr)!=false){
                 buff+=curr;
                 curr=infix[i];
                 i++;
-            }
-            postfix.push_back(buff);
+            }*/
+            postfix.push_back(currs.assign(1, curr));
         }
         prev = curr;
     }
