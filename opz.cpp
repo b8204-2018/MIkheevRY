@@ -62,7 +62,7 @@ list<string> ExpressionParser::parse(string infix) {
         if (curr == 0)continue;
         if (currs.assign(1, curr) == " ") continue;
         if (isDelimiter(currs.assign(1, curr))) {
-            if (currs.assign(1, curr) == "(") {stack1.push_back(currs.assign(1, curr)); count_operations--;}
+            if (currs.assign(1, curr) == "(") {stack1.push_front(currs.assign(1, curr)); count_operations--;}
             else if (currs.assign(1, curr) == ")") {
                 count_operations--;
                 while (stack1.front() != "(") {
