@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iostream>
 #include <stack>
 #include <string.h>
 #include <cstdlib>
@@ -9,7 +8,7 @@
 using namespace std;
 int main() {
 
-    string s = "( 22 + 55 * 22 ) /  12";
+    string s = "( 2 + 5 ) /  7";
     ExpressionParser n ;
     Calculator calculator;
     list<string> expression;

@@ -1,37 +1,46 @@
-#include <iostream>
-#include <stack>
-#include <string.h>
-#include <cstdlib>
-#include <list>
-#include <deque>
 #include "opz.h"
 
 using namespace std;
+
+
 
 bool ExpressionParser::isDelimiter(string token) {
     if (token.length() != 1) return false;
     for (int i = 0; i < delimiters.length(); i++) {
         if (token[0] == delimiters[i]) return true;
     }
+    for(int i = 0 ; i<operators.size();i++){
+        if (token[0] == operators[i].get_name())return true;
+    }
     return false;
 }
 
 bool ExpressionParser::isOperator(string token) {
-    if (token == ("u-")) return true;
-    for (int i = 0; i < operators.length(); i++) {
-        if (token[0] == operators[i]) return true;
+    for (int i = 0; i < operators.size(); i++) {
+        if (token[0] == operators[i].get_name()) return true;
     }
     return false;
 }
 
 int ExpressionParser::priority(string token) {
     if (token == "(") return 1;
-    if ((token == "+") || (token == "-")) return 2;
-    if ((token == "*") || (token == "/")) return 3;
+    for (int i = 0; i < operators.size() ; ++i) {
+        if(token[0] == operators[i].get_name()){ return operators[i].get_priority();}
+    }
     return 4;
 }
 
 list<string> ExpressionParser::parse(string infix) {
+    int count_digit=0;
+    int count_operations=0;
+    Operator add('+',2);
+    Operator sub('-',2);
+    Operator mul('*',3);
+    Operator div('/',3);
+    operators.push_back(add);
+    operators.push_back(sub);
+    operators.push_back(mul);
+    operators.push_back(div);
     list<string> postfix;
     deque<string> stack1;
     //StringTokenizer tokenizer = new StringTokenizer(infix, delimiters, true);
@@ -53,8 +62,9 @@ list<string> ExpressionParser::parse(string infix) {
         if (curr == 0)continue;
         if (currs.assign(1, curr) == " ") continue;
         if (isDelimiter(currs.assign(1, curr))) {
-            if (currs.assign(1, curr) == "(") stack1.push_back(currs.assign(1, curr));
+            if (currs.assign(1, curr) == "(") {stack1.push_back(currs.assign(1, curr)); count_operations--;}
             else if (currs.assign(1, curr) == ")") {
+                count_operations--;
                 while (stack1.front() != "(") {
                     postfix.push_back(stack1.front());
                     stack1.pop_front();
@@ -75,7 +85,7 @@ list<string> ExpressionParser::parse(string infix) {
 
                 stack1.push_front(currs.assign(1, curr));
             }
-
+            count_operations++;
         } else {
             /*string buff="";
             while (isdigit(curr)!=false){
@@ -83,7 +93,9 @@ list<string> ExpressionParser::parse(string infix) {
                 curr=infix[i];
                 i++;
             }*/
+
             postfix.push_back(currs.assign(1, curr));
+            count_digit++;
         }
         prev = curr;
     }
@@ -100,16 +112,27 @@ list<string> ExpressionParser::parse(string infix) {
             
         }
     }
-    //string buff=buff.assign(postfix.begin(),postfix.rend())
-    return postfix;
+    if (count_operations+1==count_digit) {
+        return postfix;
+    }
+    throw logic_error("Некорректное выражение.");
 }
 
 
 double Calculator::calc(list<string> postfix) {
     stack<double> stack;
     for (string x : postfix) {
-        const char *buff = x.c_str();
         if (x.c_str() != NULL) {
+            for (int i = 0; i < operators.size() ; ++i) {
+                if(x[0] ==operators[i].get_name() ){
+                    double a = stack.top();
+                    stack.pop();
+                    double b = stack.top();
+                    stack.pop();
+                    stack.push(operators[i].calc(a,b));
+
+                }
+            }
             if (x == ("+")) {
                 double a = stack.top();
                 stack.pop();
