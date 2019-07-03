@@ -17,9 +17,8 @@ public:
         string exercise;
         ifstream yourFile;
         yourFile.open(nameFile, ios_base::in);
-        if (!yourFile.is_open())
+        if (!yourFile.is_open()){
             throw invalid_argument(nameFile);
-        if (yourFile.is_open()) {
             int format(0);
             yourFile >> format;
             yourFile >> exercise;
@@ -93,7 +92,7 @@ public:
     }
 };
 
-class Parser {                                    // Ну да у KillReal'а, а кому сейчас легко? (Я разобралась как это работает).
+class Parser {                                    // Ну да у KillReal'а, а кому сейчас легко? (Я разобрался как это работает).
     int isNum(char symbol) const {
         if (symbol >= 48 && symbol <= 57) {
             return -(48 - symbol);
