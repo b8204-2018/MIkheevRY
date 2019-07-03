@@ -146,7 +146,7 @@ public:
     }
 };
 
-class SolverTask1 : public SolverTasks {
+class TaskSolver1 : public SolverTasks {
 public:
     int* calculateTask(int *variables) override  {
         int* answer = new int[3];
@@ -159,7 +159,7 @@ public:
     }
 };
 
-class SolverTask2 : public SolverTasks {
+class TaskSolver2 : public SolverTasks {
 public:
     int* calculateTask(int *variables) override {
         int* answer = new int[2];
@@ -169,7 +169,7 @@ public:
     }
 };
 
-class SolverTask3 : public SolverTasks {
+class TaskSolver3 : public SolverTasks {
 public:
     int* calculateTask(int *variables) override {
         int* answer = new int[2];
@@ -179,7 +179,7 @@ public:
     }
 };
 
-class SolverTask4 : public SolverTasks {
+class TaskSolver4 : public SolverTasks {
 public:
     int* calculateTask(int *variables) override {
         int* answer = new int[2];
@@ -189,7 +189,7 @@ public:
     }
 };
 
-class SolverTask5 : public SolverTasks {
+class TaskSolver5 : public SolverTasks {
 public:
     int* calculateTask(int *variables) override {
         int* answer = new int[2];
@@ -206,11 +206,11 @@ int main() {
     Parser Parser;
     DirectoreSolutions DirectoreSolutions;
 
-    SolverTask1 SolverTask1;
-    SolverTask2 SolverTask2;
-    SolverTask3 SolverTask3;
-    SolverTask4 SolverTask4;
-    SolverTask5 SolverTask5;
+    TaskSolver1 SolverTask1;
+    TaskSolver2 SolverTask2;
+    TaskSolver3 SolverTask3;
+    TaskSolver4 SolverTask4;
+    TaskSolver5 SolverTask5;
 
     DirectoreSolutions.addSolutionTask(SolverTask1);
     DirectoreSolutions.addSolutionTask(SolverTask2);
