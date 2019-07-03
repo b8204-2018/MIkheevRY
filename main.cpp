@@ -17,13 +17,13 @@ public:
         string exercise;
         ifstream yourFile;
         yourFile.open(nameFile, ios_base::in);
-        if (!yourFile.is_open()){
+        if (!yourFile.is_open())
             throw invalid_argument(nameFile);
             int format(0);
             yourFile >> format;
             yourFile >> exercise;
             yourFile.close();
-        }
+       
         return exercise;
     }
 
@@ -33,10 +33,8 @@ public:
         yourFile.open(nameFile, ios_base::in);
         if (!yourFile.is_open())
             throw invalid_argument(nameFile);
-        if (yourFile.is_open()) {
             yourFile >> format;
             yourFile.close();
-        }
         return format;
     }
 };
